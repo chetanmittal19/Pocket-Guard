@@ -1,0 +1,3 @@
+package com.example.pocketguard
+
+data class Feature(val id: Int, val name: String, val iconId: Int)

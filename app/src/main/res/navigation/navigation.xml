@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/featuresFragment">
+
+    <fragment
+        android:id="@+id/featuresFragment"
+        android:name="com.example.pocketguard.FeaturesFragment"
+        android:label="fragment_features"
+        tools:layout="@layout/fragment_features" >
+        <action
+            android:id="@+id/action_featuresFragment_to_emergencyFragment"
+            app:destination="@id/emergencyFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_flashingFragment"
+            app:destination="@id/flashingFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_tipsFragment"
+            app:destination="@id/tipsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emergencyFragment"
+        android:name="com.example.pocketguard.EmergencyFragment"
+        android:label="fragment_emergency"
+        tools:layout="@layout/fragment_emergency" />
+    <fragment
+        android:id="@+id/flashingFragment"
+        android:name="com.example.pocketguard.FlashingFragment"
+        android:label="fragment_flashing"
+        tools:layout="@layout/fragment_flashing" />
+    <fragment
+        android:id="@+id/tipsFragment"
+        android:name="com.example.pocketguard.TipsFragment"
+        android:label="fragment_tips"
+        tools:layout="@layout/fragment_tips" />
+</navigation>
