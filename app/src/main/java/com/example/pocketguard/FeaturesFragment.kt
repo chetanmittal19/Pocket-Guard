@@ -46,10 +46,10 @@ class FeaturesFragment : Fragment() {
         Toast.makeText(requireContext(), "Fragment: ${feature.name}", Toast.LENGTH_SHORT).show()
         when(feature.id){
             1->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToEmergencyFragment())
-            2->"abs"
+            2->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHiddenCameraFragment())
             3->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFlashingFragment())
-            4->"abs"
-            5->"abs"
+            4->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToLocationFragment())
+            5->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHelplineFragment())
             6->"abs"
             7->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToTipsFragment())
             8->"abs"
