@@ -20,16 +20,10 @@
             android:id="@+id/action_featuresFragment_to_tipsFragment"
             app:destination="@id/tipsFragment" />
         <action
-            android:id="@+id/action_featuresFragment_to_locationFragment"
-            app:destination="@id/locationFragment" />
-        <action
             android:id="@+id/action_featuresFragment_to_helplineFragment"
             app:destination="@id/helplineFragment" />
         <action
             android:id="@+id/action_featuresFragment_to_hiddenCameraFragment"
-            app:destination="@id/hiddenCameraFragment" />
-        <action
-            android:id="@+id/action_featuresFragment_to_hiddenCameraFragment2"
             app:destination="@id/hiddenCameraFragment" />
     </fragment>
     <fragment
@@ -47,11 +41,6 @@
         android:name="com.example.pocketguard.TipsFragment"
         android:label="fragment_tips"
         tools:layout="@layout/fragment_tips" />
-    <fragment
-        android:id="@+id/locationFragment"
-        android:name="com.example.pocketguard.LocationFragment"
-        android:label="fragment_location"
-        tools:layout="@layout/fragment_location" />
     <fragment
         android:id="@+id/helplineFragment"
         android:name="com.example.pocketguard.HelplineFragment"

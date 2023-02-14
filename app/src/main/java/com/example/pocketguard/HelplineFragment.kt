@@ -1,59 +1,103 @@
 package com.example.pocketguard
 
+import android.content.Intent
+import android.content.Intent.ACTION_CALL
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+const val PERMISSION_REQUEST_PHONE_CALL = 0
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HelplineFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HelplineFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val helpline = arrayOf(
+        Helpline("Fire and Rescue", "101"),
+        Helpline("Child Helpline", "1098"),
+        Helpline("Women Helpline", "1091"),
+        Helpline("Ambulance", "108"),
+        Helpline("Police", "100"),
+        Helpline("Helpdesk", "18001802128"),
+        Helpline("COVID-19 Helpline", "8558893911"),
+        Helpline("Cyber Crime", "155620"))
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var contactDetail: Helpline? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_helpline, container, false)
+        val view = inflater.inflate(R.layout.fragment_helpline, container, false)
+
+        val helplineList = view.findViewById<RecyclerView>(R.id.helplineRecycler)
+        helplineList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+
+            adapter = HelplineAdapter(::onContactClick).apply {
+                setHasStableIds(true)
+            }
+            setHasFixedSize(true)
+
+        }
+        (helplineList.adapter as HelplineAdapter).helplineData = helpline
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HelplineFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HelplineFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun onContactClick(helpline: Helpline, view: View) {
+        contactDetail = helpline
+        makePhoneCallAfterPermission(view)
+    }
+
+    private fun makePhoneCallAfterPermission(view: View) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) ==
+                PackageManager.PERMISSION_GRANTED) {
+            makePhoneCall()
+        } else {
+            requestCallPermission(view)
+        }
+    }
+
+    private fun requestCallPermission(view: View) {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), android.Manifest.permission.CALL_PHONE)){
+            val snack = Snackbar.make(view, "We need your permission to make a call. " +
+            "When asked please give the permission", Snackbar.LENGTH_INDEFINITE)
+            snack.setAction("OK"){
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CALL_PHONE),
+                PERMISSION_REQUEST_PHONE_CALL)
             }
+            snack.show()
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CALL_PHONE),
+                PERMISSION_REQUEST_PHONE_CALL)
+        }
+    }
+
+    private fun makePhoneCall() {
+        val intent = Intent().apply {
+            action = ACTION_CALL
+            data = Uri.parse("tel:"+contactDetail?.contact)
+        }
+        startActivity(intent)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == PERMISSION_REQUEST_PHONE_CALL){
+            if(grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall()
+            } else {
+                Toast.makeText(activity, "Permission denied to make phone call", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

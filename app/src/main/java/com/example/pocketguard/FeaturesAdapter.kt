@@ -41,10 +41,6 @@ class FeaturesAdapter(private val onFeatureClicked: (Feature) -> Unit) : Recycle
     }
 
     override fun onBindViewHolder(holder: FeatureViewHolder, position: Int) {
-//        with(holder){
-//            icon.setImageResource(featureData[position].iconId)
-//            name.text = featureData[position].name
-//        }
         val feature = featureData[position]
         feature.let{
             holder.bind(it)

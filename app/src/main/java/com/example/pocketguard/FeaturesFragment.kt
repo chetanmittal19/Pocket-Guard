@@ -1,5 +1,6 @@
 package com.example.pocketguard
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -48,7 +49,8 @@ class FeaturesFragment : Fragment() {
             1->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToEmergencyFragment())
             2->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHiddenCameraFragment())
             3->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFlashingFragment())
-            4->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToLocationFragment())
+            4-> startActivity(Intent(this@FeaturesFragment.requireContext(), LocationAct::class.java))
+//            4->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToLocationFragment())
             5->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHelplineFragment())
             6->"abs"
             7->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToTipsFragment())
