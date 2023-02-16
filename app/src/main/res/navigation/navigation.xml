@@ -28,6 +28,12 @@
         <action
             android:id="@+id/action_featuresFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/emergencyFragment"
@@ -76,4 +82,14 @@
             android:id="@+id/action_registerFragment_to_featuresFragment"
             app:destination="@id/featuresFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.pocketguard.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.example.pocketguard.ContactFragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" />
 </navigation>

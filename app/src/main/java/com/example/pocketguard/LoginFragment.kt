@@ -33,46 +33,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
-
-//        val register = view.findViewById<Button>(R.id.register)
-        /*register.setOnClickListener{
-            findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-            )
-        }
-
-        val login = view.findViewById<Button>(R.id.login)
-        login.setOnClickListener{
-            view.findViewById<TextInputLayout>(R.id.user_email_container).error = null
-            view.findViewById<TextInputLayout>(R.id.user_pass_container).error = null
-
-            val email = view.findViewById<TextInputEditText>(R.id.user_email).text.toString()
-            val pass = view.findViewById<TextInputEditText>(R.id.user_pass).text.toString()
-
-            if(validateInput(email, pass, view)){
-                val progress = view.findViewById<ProgressBar>(R.id.progress)
-                progress.visibility = View.VISIBLE
-
-                auth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(requireActivity()){task ->
-                        progress.visibility = View.INVISIBLE
-                        if(task.isSuccessful){
-                            LoginFragmentDirections.actionLoginFragmentToFeaturesFragment()
-                        } else {
-                            val toast = Toast.makeText(
-                                requireActivity(),
-                                "Authentication failed: ${task.exception?.message}",
-                                Toast.LENGTH_LONG
-                            )
-
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-                            toast.show()
-                        }
-                    }
-            }
-        }*/
-        return view
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

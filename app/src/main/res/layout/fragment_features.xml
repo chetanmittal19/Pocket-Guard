@@ -7,16 +7,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FeaturesFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@color/red"
+        />
+
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
         android:layout_height="250dp"
-        android:background="@color/red" />
+        android:background="@color/teal_700" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/featuresList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
