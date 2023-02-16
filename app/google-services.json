@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "165797064854",
+    "project_id": "pocketguard-5e65a",
+    "storage_bucket": "pocketguard-5e65a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165797064854:android:76f4559f9322c62b6b12b7",
+        "android_client_info": {
+          "package_name": "com.example.pocketguard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165797064854-h8o1cu3p5vd1i59kpjp2ub4k5onktsj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwTTMw1oMNmqNLqsEr2cJL1XsoyyZGdOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165797064854-h8o1cu3p5vd1i59kpjp2ub4k5onktsj5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
