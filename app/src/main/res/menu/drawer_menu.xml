@@ -6,7 +6,11 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/menu_chat"
-            android:title="Company Chat" />
+            android:icon="@drawable/baseline_feedback_24"
+            android:title="@string/feedback" />
+    </group>
+
+    <group>
         <item
             android:id="@+id/about"
             android:icon="@drawable/ic_domain_black_24dp"
@@ -17,6 +21,9 @@
             android:icon="@drawable/ic_contacts_black_24dp"
             android:title="@string/contact_us" />
 
+    </group>
+
+    <group>
         <item
             android:id="@+id/sign_out"
             android:title="@string/sign_out" />

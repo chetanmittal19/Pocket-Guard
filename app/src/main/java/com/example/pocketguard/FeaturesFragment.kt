@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-//import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -22,7 +21,6 @@ import androidx.navigation.ui.setupWithNavController
 class FeaturesFragment : Fragment() {
     private lateinit var _binding: FragmentFeaturesBinding
     private val binding get() = _binding!!
-//    private lateinit var toggle: ActionBarDrawerToggle
 
     private val features = arrayOf(
         Feature(1, "Emergency SOS", R.drawable.sos),
@@ -66,10 +64,7 @@ class FeaturesFragment : Fragment() {
         val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
         val navigationView = requireActivity().findViewById<NavigationView>(R.id.navigation_view)
-//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         val toolbar = binding.toolbar
-
-//        NavigationUI.setupWithNavController(toolbar, navController, drawerLayout)
 
         NavigationUI.setupWithNavController(toolbar, navController,
             AppBarConfiguration.Builder(R.id.navigation, R.id.featuresFragment)
@@ -77,53 +72,15 @@ class FeaturesFragment : Fragment() {
                 .build()
         )
 
-        /*binding.apply {
-//            toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.open, R.string.close)
-//            drawerLayout.addDrawerListener(toggle)
-//            toggle.syncState()
-
-//            (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-            navigationView.setNavigationItemSelectedListener {
-                drawerLayout.closeDrawers()
-
-                when (it.itemId) {
-//                R.id.menu_chat -> findNavController().navigate(
-//                )
-                    R.id.contact ->  findNavController().navigate(
-                        FeaturesFragmentDirections.actionFeaturesFragmentToContactFragment()
-                    )
-                    R.id.about ->  findNavController().navigate(
-                        FeaturesFragmentDirections.actionFeaturesFragmentToAboutFragment()
-                    )
-                    R.id.sign_out -> {
-                        val auth = FirebaseAuth.getInstance()
-                        auth.signOut()
-                        auth.addAuthStateListener {
-                            if(auth.currentUser == null) {
-                                //listener is called multiple times so check if we are in correct fragment
-                                val currId = findNavController().currentDestination!!.id
-                                if(currId == R.id.featuresFragment) {
-                                    findNavController().navigate(
-                                        FeaturesFragmentDirections.actionFeaturesFragmentToLoginFragment()
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-                true
-            }
-        }*/
-
         navigationView.setupWithNavController(navController)
 
         navigationView.setNavigationItemSelectedListener {
             drawerLayout.closeDrawers()
 
             when (it.itemId) {
-//                R.id.menu_chat -> findNavController().navigate(
-//                )
+                R.id.menu_chat -> findNavController().navigate(
+                    FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment()
+                )
                 R.id.contact ->  findNavController().navigate(
                     FeaturesFragmentDirections.actionFeaturesFragmentToContactFragment()
                 )
@@ -132,6 +89,7 @@ class FeaturesFragment : Fragment() {
                 )
                 R.id.sign_out -> {
                     val auth = FirebaseAuth.getInstance()
+                    Toast.makeText(requireContext(), "name: " + auth.currentUser?.email, Toast.LENGTH_LONG).show()
                     auth.signOut()
                     auth.addAuthStateListener {
                         if(auth.currentUser == null) {
@@ -160,7 +118,7 @@ class FeaturesFragment : Fragment() {
             5->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHelplineFragment())
             6->"abs"
             7->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToTipsFragment())
-            8->"abs"
+            8->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment())
         }
     }
 }
