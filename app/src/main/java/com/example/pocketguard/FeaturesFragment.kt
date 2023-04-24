@@ -26,11 +26,11 @@ class FeaturesFragment : Fragment() {
         Feature(1, "Emergency SOS", R.drawable.sos),
         Feature(2, "Hidden Camera", R.drawable.camera),
         Feature(3, "Siren Alert", R.drawable.siren), //done
-        Feature(4, "Current Location", R.drawable.location), //1
-        Feature(5, "Helpline Numbers", R.drawable.helpline), //2
-        Feature(6, "Find My Phone", R.drawable.search),
-        Feature(7, "Safety Tips", R.drawable.safety), //done
-        Feature(8, "Feedback", R.drawable.feedback)) //3
+        Feature(4, "Current Location", R.drawable.location),
+        Feature(5, "Helpline Numbers", R.drawable.helpline),
+//        Feature(6, "Find My Phone", R.drawable.search),
+        Feature(7, "Safety Tips", R.drawable.safety),
+        Feature(8, "Community", R.drawable.feedback))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +62,8 @@ class FeaturesFragment : Fragment() {
 
     private fun setupNavigationDrawer() {
         val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
-        val navigationView = requireActivity().findViewById<NavigationView>(R.id.navigation_view)
+        val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawerLayout)
+        val navigationView = requireActivity().findViewById<NavigationView>(R.id.navigationView)
         val toolbar = binding.toolbar
 
         NavigationUI.setupWithNavController(toolbar, navController,
@@ -116,7 +116,7 @@ class FeaturesFragment : Fragment() {
             3->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFlashingFragment())
             4-> startActivity(Intent(this@FeaturesFragment.requireContext(), LocationAct::class.java))
             5->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHelplineFragment())
-            6->"abs"
+            6->"abc"
             7->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToTipsFragment())
             8->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment())
         }

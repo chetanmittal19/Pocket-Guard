@@ -13,4 +13,7 @@
     <color name="dark_red">#8B0000</color>
     <color name="colorGray">#808080</color>
     <color name="colorBlue">#0000FF</color>
+    <color name="green">#00FF00</color>
+    <color name="light_gray">#F1F1F1</color>
+    <color name="cornflower_blue">#6495ED</color>
 </resources>

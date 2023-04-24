@@ -16,8 +16,6 @@ import com.google.firebase.database.*
 class FeedbackFragment : Fragment() {
 
     private lateinit var btnInsert: ImageView
-//    private lateinit var btnView: Button
-//    private lateinit var email: EditText
     private lateinit var question: EditText
     private lateinit var databaseUsers: DatabaseReference
 
@@ -69,7 +67,6 @@ class FeedbackFragment : Fragment() {
                     }
                     adapter.notifyDataSetChanged()
                 }
-
                 progress.visibility = View.INVISIBLE
             }
 

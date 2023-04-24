@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/featuresFragment"
         android:name="com.example.pocketguard.FeaturesFragment"
-        android:label="fragment_features"
+        android:label="Pocket Guard"
         tools:layout="@layout/fragment_features" >
         <action
             android:id="@+id/action_featuresFragment_to_emergencyFragment"
@@ -65,7 +65,11 @@
         android:id="@+id/hiddenCameraFragment"
         android:name="com.example.pocketguard.HiddenCameraFragment"
         android:label="fragment_hidden_camera"
-        tools:layout="@layout/fragment_hidden_camera" />
+        tools:layout="@layout/fragment_hidden_camera" >
+        <action
+            android:id="@+id/action_hiddenCameraFragment_to_magnetometer"
+            app:destination="@id/magnetometer" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.pocketguard.LoginFragment"
@@ -103,4 +107,9 @@
         android:name="com.example.pocketguard.FeedbackFragment"
         android:label="fragment_feedback"
         tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/magnetometer"
+        android:name="com.example.pocketguard.Magnetometer"
+        android:label="fragment_magnetometer"
+        tools:layout="@layout/fragment_magnetometer" />
 </navigation>
