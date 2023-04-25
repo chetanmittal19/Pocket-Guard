@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pocketguard.databinding.FragmentEmergencyBinding
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -132,7 +133,7 @@ class EmergencyFragment : Fragment() {
         }
     }
 
-    private fun sendSms(phoneNumber: String) {
+    /*private fun sendSms(phoneNumber: String) {
         if (checkSmsPermission()) {
             val smsManager = SmsManager.getDefault()
             val message = "I'm in danger, help!"
@@ -141,6 +142,37 @@ class EmergencyFragment : Fragment() {
             if (phoneNumber.isEmpty()) return
             smsManager.sendTextMessage(phoneNumber, null, message, sentIntent, deliveredIntent)
             Toast.makeText(requireContext(), "SMS sent to $phoneNumber", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }*/
+
+    private fun sendSms(phoneNumber: String) {
+        if (checkSmsPermission()) {
+            val smsManager = SmsManager.getDefault()
+            val message = "I'm in danger, help! My location is: "
+
+            // Get the user's current location
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    if (location != null) {
+                        // Append the latitude and longitude to the SMS message
+                        val lat = location.latitude
+                        val lng = location.longitude
+                        val locationStr = "https://www.google.com/maps/search/?api=1&query=$lat,$lng"
+                        val fullMessage = "$message $locationStr"
+
+                        val sentIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"), 0)
+                        val deliveredIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_DELIVERED"), 0)
+                        smsManager.sendTextMessage(phoneNumber, null, fullMessage, sentIntent, deliveredIntent)
+                        Toast.makeText(requireContext(), "SMS sent to $phoneNumber", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.d("EmergencyFragment", "Error getting location: $e")
+                    Toast.makeText(requireContext(), "Error getting location", Toast.LENGTH_SHORT).show()
+                }
         } else {
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
         }
