@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -26,7 +27,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyD1o_WmNskKB8qjN8LE_IlTzfJmu86IIok" />
 
         <activity
             android:name=".MainActivity"
