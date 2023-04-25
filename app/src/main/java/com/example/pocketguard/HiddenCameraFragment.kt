@@ -5,24 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
+import com.example.pocketguard.databinding.FragmentHiddenCameraBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class HiddenCameraFragment : Fragment() {
+
+    private lateinit var _binding: FragmentHiddenCameraBinding
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_hidden_camera, container, false)
+        _binding = FragmentHiddenCameraBinding.inflate(inflater, container, false)
 
-        val magnetometerBtn = view.findViewById<CardView>(R.id.btn_magnetometer)
+        val magnetometerBtn = binding.btnMagnetometer
         magnetometerBtn.setOnClickListener{
             findNavController().navigate(
                 HiddenCameraFragmentDirections.actionHiddenCameraFragmentToMagnetometer()
             )
         }
-        return view
+
+        val detailedInstruction = binding.magnetometerInstructions
+        detailedInstruction.setOnClickListener {
+            val v: View = layoutInflater.inflate(R.layout.item_bottom_sheet, null)
+            val dialog = BottomSheetDialog(requireContext())
+            dialog.setContentView(v)
+            dialog.show()
+        }
+
+        return binding.root
     }
 }

@@ -1,23 +1,190 @@
 package com.example.pocketguard
 
+import android.Manifest
+import android.app.Activity
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.provider.ContactsContract
+import android.telephony.SmsManager
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pocketguard.databinding.FragmentEmergencyBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class EmergencyFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var _binding: FragmentEmergencyBinding
+    private val binding get() = _binding
+    private val PERMISSION_REQUEST_CODE = 1
+    private lateinit var shakeDetector: ShakeDetector
+    private lateinit var database: ContactDatabase
+    private var listOfContact = listOf<Contact>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_emergency, container, false)
+        _binding = FragmentEmergencyBinding.inflate(inflater, container, false)
+
+
+        database = ContactDatabase.getDatabase(requireContext())
+
+        val addContact = binding.addContactBtn
+        addContact.setOnClickListener {
+            if(listOfContact.size==5){
+                Toast.makeText(requireContext(), "Can't add more than 5 contacts", Toast.LENGTH_SHORT).show()
+            } else {
+                val i = Intent(Intent.ACTION_PICK)
+                i.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+                startActivityForResult(i, 111)
+            }
+        }
+
+        val contactList = binding.contactList
+        contactList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+
+            adapter = ContactsAdapter(::onContactClicked).apply{
+                setHasStableIds(true)
+            }
+            setHasFixedSize(true)
+        }
+
+        getData()
+
+        // Initialize the shake detector
+        shakeDetector = ShakeDetector {
+            if (it==3 && listOfContact.isNotEmpty()) {
+                vibrate()
+                listOfContact.forEach {ct ->
+                    sendSms(ct.phoneNo)
+                }
+            }
+        }
+
+        return binding.root
+    }
+
+    private fun getData(){
+        database.contactDao().getContact().observe(viewLifecycleOwner) {
+            listOfContact = it
+            (binding.contactList.adapter as ContactsAdapter).contactData = listOfContact
+            Log.d("Chetan", it.toString())
+        }
+    }
+
+    private fun onContactClicked(contact: Contact){
+        GlobalScope.launch {
+            database.contactDao().deleteContact(contact)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 111 && resultCode == Activity.RESULT_OK){
+            val contactUri : Uri = data?.data ?: return
+            val cols : Array<String> = arrayOf(
+                ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+
+            val rs = requireActivity().contentResolver.query(contactUri, cols, null, null, null)
+            if(rs?.moveToFirst()!!){
+                val phoneNo = rs.getString(0)
+                val name = rs.getString(1)
+
+                GlobalScope.launch {
+                    database.contactDao().insertContact(Contact(0, name, phoneNo))
+                }
+            }
+            rs.close()
+        }
+    }
+
+    private fun vibrate() {
+        val vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        val vibEff: VibrationEffect?
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            vibEff = VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK)
+            vibrator.cancel()
+            vibrator.vibrate(vibEff)
+        } else {
+            vibrator.vibrate(500)
+        }
+    }
+
+    private fun sendSms(phoneNumber: String) {
+        if (checkSmsPermission()) {
+            val smsManager = SmsManager.getDefault()
+            val message = "I'm in danger, help!"
+            val sentIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"), 0)
+            val deliveredIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_DELIVERED"), 0)
+            if (phoneNumber.isEmpty()) return
+            smsManager.sendTextMessage(phoneNumber, null, message, sentIntent, deliveredIntent)
+            Toast.makeText(requireContext(), "SMS sent to $phoneNumber", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // Register the shake detector
+        val sensorManager = requireActivity().getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
+
+        // Request permission to send SMS if needed
+        if (!checkSmsPermission()) {
+            requestSmsPermission()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Unregister the shake detector
+        val sensorManager = requireActivity().getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        sensorManager.unregisterListener(shakeDetector)
+    }
+
+    private fun checkSmsPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestSmsPermission() {
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.SEND_SMS), PERMISSION_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireContext(), "Permission granted", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

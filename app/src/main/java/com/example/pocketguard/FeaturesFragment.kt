@@ -78,6 +78,9 @@ class FeaturesFragment : Fragment() {
             drawerLayout.closeDrawers()
 
             when (it.itemId) {
+                R.id.tip -> findNavController().navigate(
+                    FeaturesFragmentDirections.actionFeaturesFragmentToManualAuthenticationFragment()
+                )
                 R.id.menu_chat -> findNavController().navigate(
                     FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment()
                 )

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_featuresFragment_to_feedbackFragment"
             app:destination="@id/feedbackFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_manualAuthenticationFragment"
+            app:destination="@id/manualAuthenticationFragment" />
     </fragment>
     <fragment
         android:id="@+id/emergencyFragment"
@@ -112,4 +115,22 @@
         android:name="com.example.pocketguard.Magnetometer"
         android:label="fragment_magnetometer"
         tools:layout="@layout/fragment_magnetometer" />
+    <fragment
+        android:id="@+id/manualAuthenticationFragment"
+        android:name="com.example.pocketguard.ManualAuthenticationFragment"
+        android:label="fragment_manual_authentication"
+        tools:layout="@layout/fragment_manual_authentication" >
+        <action
+            android:id="@+id/action_manualAuthenticationFragment_to_manualAuthenticationDetailFragment"
+            app:destination="@id/manualAuthenticationDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manualAuthenticationDetailFragment"
+        android:name="com.example.pocketguard.ManualAuthenticationDetailFragment"
+        android:label="fragment_manual_authentication_detail"
+        tools:layout="@layout/fragment_manual_authentication_detail" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

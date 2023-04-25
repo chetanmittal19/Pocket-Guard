@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.pocketguard.databinding.FragmentMagnetometerBinding
-import java.text.DecimalFormat
 import kotlin.math.sqrt
 
 class Magnetometer : Fragment(), SensorEventListener {
@@ -28,7 +27,6 @@ class Magnetometer : Fragment(), SensorEventListener {
         if(magnetometerSensor == null){
             binding.reading.text = "Magnetic sensor was not found"
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
