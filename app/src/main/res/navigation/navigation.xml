@@ -43,6 +43,12 @@
         <action
             android:id="@+id/action_featuresFragment_to_manualAuthenticationFragment"
             app:destination="@id/manualAuthenticationFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_rateBarFragment"
+            app:destination="@id/rateBarFragment" />
+        <action
+            android:id="@+id/action_featuresFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
     </fragment>
     <fragment
         android:id="@+id/emergencyFragment"
@@ -133,4 +139,13 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/rateBarFragment"
+        android:name="com.example.pocketguard.RateBarFragment"
+        android:label="fragment_rate_bar"
+        tools:layout="@layout/fragment_rate_bar" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.example.pocketguard.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment" />
 </navigation>

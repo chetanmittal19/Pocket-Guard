@@ -36,10 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/register"
+        android:textColor="@color/red"
+        android:backgroundTint="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/user_pass_container" />
 
     <Button
@@ -50,7 +51,8 @@
         android:gravity="center"
         android:text="@string/already_registered_click_here_to_login"
         android:textSize="15sp"
-        android:background="@color/black"
+        android:textColor="@color/red"
+        android:backgroundTint="@color/light_gray"
         app:layout_constraintTop_toBottomOf="@+id/register"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -94,12 +96,12 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/registerScrn"
-        tools:srcCompat="@tools:sample/avatars"
+        android:src="@drawable/baseline_face_24"
         android:contentDescription="@string/company_logo"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

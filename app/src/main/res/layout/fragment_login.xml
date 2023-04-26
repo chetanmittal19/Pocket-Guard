@@ -37,6 +37,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/login"
         android:textColor="@color/red"
+        android:backgroundTint="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_pass_container" />
@@ -51,6 +52,7 @@
         android:textAllCaps="false"
         android:textSize="15sp"
         android:textColor="@color/red"
+        android:backgroundTint="@color/light_gray"
         android:layout_margin="16dp"
         app:circularflow_radiusInDP=""
         app:layout_constraintTop_toBottomOf="@+id/login" />
@@ -95,12 +97,12 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginscrn"
-        tools:srcCompat="@tools:sample/avatars"
+        android:src="@drawable/baseline_face_24"
         android:contentDescription="@string/company_logo"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,4 +66,7 @@ dependencies {
 
     //coroutines
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+
+    //splash screen
+    implementation 'com.airbnb.android:lottie:6.0.0'
 }

@@ -76,7 +76,7 @@ class ManualAuthenticationDetailFragment : Fragment() {
 
         val ot = "While outside you might be under CCTV camera.\n" +
                 "\n" +
-                "In Outside world, you are not supposed to hide your identity in official places, so just be cautious and behave accordingly"
+                "In Outside world, you are not supposed to hide your identity in official places, so just be cautious and behave accordingly."
 
         val tipInstructions = arrayOf(bed, bath, ch, ot)
 

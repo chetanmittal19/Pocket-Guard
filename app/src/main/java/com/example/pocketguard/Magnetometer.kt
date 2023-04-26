@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,12 +19,14 @@ class Magnetometer : Fragment(), SensorEventListener {
     private var magnetometerSensor: Sensor? = null
     private lateinit var binding: FragmentMagnetometerBinding
 
+    private lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.beep)
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-
         if(magnetometerSensor == null){
             binding.reading.text = "Magnetic sensor was not found"
         }
@@ -49,7 +52,14 @@ class Magnetometer : Fragment(), SensorEventListener {
         if (mag<=80) binding.pointer.setBackgroundResource(R.color.green)
         else if (mag<=110) binding.pointer.setBackgroundResource(R.color.cornflower_blue)
         else if (mag<=150) binding.pointer.setBackgroundResource(R.color.yellow)
-        else binding.pointer.setBackgroundResource(R.color.red)
+        else {
+            mediaPlayer.start()
+            mediaPlayer.setOnCompletionListener {
+                mediaPlayer.stop()
+                mediaPlayer.prepare()
+            }
+            binding.pointer.setBackgroundResource(R.color.red)
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -68,4 +78,8 @@ class Magnetometer : Fragment(), SensorEventListener {
         sensorManager.unregisterListener(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.release()
+    }
 }

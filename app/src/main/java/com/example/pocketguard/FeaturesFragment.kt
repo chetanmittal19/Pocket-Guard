@@ -20,17 +20,19 @@ import androidx.navigation.ui.setupWithNavController
 
 class FeaturesFragment : Fragment() {
     private lateinit var _binding: FragmentFeaturesBinding
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private val features = arrayOf(
         Feature(1, "Emergency SOS", R.drawable.sos),
         Feature(2, "Hidden Camera", R.drawable.camera),
-        Feature(3, "Siren Alert", R.drawable.siren), //done
-        Feature(4, "Current Location", R.drawable.location),
+        Feature(3, "Community", R.drawable.feedback),
+        Feature(4, "Siren Alert", R.drawable.siren),
         Feature(5, "Helpline Numbers", R.drawable.helpline),
-//        Feature(6, "Find My Phone", R.drawable.search),
+        Feature(6, "Current Location", R.drawable.location),
         Feature(7, "Safety Tips", R.drawable.safety),
-        Feature(8, "Community", R.drawable.feedback))
+        Feature(8, "Share Us", R.drawable.baseline_share_24)
+//        Feature(8, "Find My Phone", R.drawable.search)
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,9 +83,6 @@ class FeaturesFragment : Fragment() {
                 R.id.tip -> findNavController().navigate(
                     FeaturesFragmentDirections.actionFeaturesFragmentToManualAuthenticationFragment()
                 )
-                R.id.menu_chat -> findNavController().navigate(
-                    FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment()
-                )
                 R.id.contact ->  findNavController().navigate(
                     FeaturesFragmentDirections.actionFeaturesFragmentToContactFragment()
                 )
@@ -106,6 +105,12 @@ class FeaturesFragment : Fragment() {
                         }
                     }
                 }
+                R.id.rate_us -> findNavController().navigate(
+                    FeaturesFragmentDirections.actionFeaturesFragmentToRateBarFragment()
+                )
+                R.id.privacy_policy -> findNavController().navigate(
+                    FeaturesFragmentDirections.actionFeaturesFragmentToPrivacyPolicyFragment()
+                )
             }
             true
         }
@@ -116,12 +121,20 @@ class FeaturesFragment : Fragment() {
         when(feature.id){
             1->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToEmergencyFragment())
             2->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHiddenCameraFragment())
-            3->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFlashingFragment())
-            4-> startActivity(Intent(this@FeaturesFragment.requireContext(), LocationAct::class.java))
+            3->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment())
+            4->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFlashingFragment())
             5->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHelplineFragment())
-            6->"abc"
+            6->startActivity(Intent(this@FeaturesFragment.requireContext(), LocationAct::class.java))
             7->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToTipsFragment())
-            8->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToFeedbackFragment())
+            8->{
+                val intent = Intent(Intent.ACTION_SEND)
+                val body = "Hey people,I am gifting a token of safety to all the persons in my society as \n\n*Pocket Guard* solves a very heart wrenching problem of our civilisation, *People's Safety*. \n\nJust *download*,start using, and spread the app \n\nSo that any *person* related to you can feel safer and empowered in this world. \n\nDownload Pocket Guard at:-\n"
+                val link = body + ""
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Pocket Guard")
+                intent.putExtra(Intent.EXTRA_TEXT, body)
+                startActivity(Intent.createChooser(intent, "Share us on..."))
+            }
         }
     }
 }

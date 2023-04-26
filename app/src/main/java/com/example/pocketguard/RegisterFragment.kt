@@ -59,6 +59,7 @@ class RegisterFragment : Fragment() {
                     .addOnCompleteListener(requireActivity()){task ->
                         progress.visibility = View.INVISIBLE
                         if(task.isSuccessful){
+                            Toast.makeText(requireContext(), "Authentication Successful", Toast.LENGTH_SHORT).show()
                             RegisterFragmentDirections.actionRegisterFragmentToFeaturesFragment()
                         } else {
                             val toast = Toast.makeText(
