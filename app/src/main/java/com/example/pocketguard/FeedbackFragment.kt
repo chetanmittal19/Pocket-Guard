@@ -18,7 +18,7 @@ class FeedbackFragment : Fragment() {
     private lateinit var btnInsert: ImageView
     private lateinit var question: EditText
     private lateinit var databaseUsers: DatabaseReference
-
+    private lateinit var list: ArrayList<User>
     private lateinit var binding: FragmentFeedbackBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +46,7 @@ class FeedbackFragment : Fragment() {
     private fun fillRecycler() {
         val feedbackRecycler = binding.feedbackRecycler
         val databaseReference = FirebaseDatabase.getInstance().getReference("users")
-        val list: ArrayList<User> = arrayListOf()
+        list = arrayListOf()
 
         val progress = binding.progressBar
         progress.visibility = View.VISIBLE
@@ -64,6 +64,9 @@ class FeedbackFragment : Fragment() {
                     for (dataSnapshot in snapshot.children) {
                         val user = dataSnapshot.getValue(User::class.java)
                         list.add(user!!)
+                        list.sortBy {
+                            it.id
+                        }
                     }
                     adapter.notifyDataSetChanged()
                 }
@@ -83,7 +86,7 @@ class FeedbackFragment : Fragment() {
         val id = databaseUsers.push().key.hashCode().toString()
 //        Toast.makeText(this, "id: $id", Toast.LENGTH_LONG).show()
 
-        val user = User(userEmail, userQuestion)
+        val user = User(list.size + 1, userEmail, userQuestion)
         databaseUsers.child("users").child(id).setValue(user)
             .addOnCompleteListener{task ->
                 if(task.isSuccessful){

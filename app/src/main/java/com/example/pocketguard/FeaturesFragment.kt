@@ -117,7 +117,7 @@ class FeaturesFragment : Fragment() {
     }
 
     private fun onFeatureClick(feature: Feature){
-        Toast.makeText(requireContext(), "Fragment: ${feature.name}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "Fragment: ${feature.name}", Toast.LENGTH_SHORT).show()
         when(feature.id){
             1->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToEmergencyFragment())
             2->findNavController().navigate(FeaturesFragmentDirections.actionFeaturesFragmentToHiddenCameraFragment())
