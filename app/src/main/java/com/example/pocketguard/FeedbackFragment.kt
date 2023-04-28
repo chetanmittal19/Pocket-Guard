@@ -90,7 +90,7 @@ class FeedbackFragment : Fragment() {
         databaseUsers.child("users").child(id).setValue(user)
             .addOnCompleteListener{task ->
                 if(task.isSuccessful){
-                    Toast.makeText(requireContext(), "User detail inserted", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "message sent", Toast.LENGTH_SHORT).show()
                 }
             }
     }

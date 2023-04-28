@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng
 class LocationAct : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+//    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -28,19 +28,14 @@ class LocationAct : AppCompatActivity(), OnMapReadyCallback {
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             map.isMyLocationEnabled = true
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null) {
-                    val currentLatLng = LatLng(location.latitude, location.longitude)
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
-                }
-            }
+            val currentLatLng = LatLng(DataHolder.lt, DataHolder.lo)
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
         }

@@ -26,7 +26,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pocketguard.databinding.FragmentEmergencyBinding
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -45,7 +44,6 @@ class EmergencyFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEmergencyBinding.inflate(inflater, container, false)
-
 
         database = ContactDatabase.getDatabase(requireContext())
 
@@ -70,6 +68,8 @@ class EmergencyFragment : Fragment() {
             setHasFixedSize(true)
         }
 
+//        Toast.makeText(requireContext(), "${DataHolder.lt} ${DataHolder.lo}", Toast.LENGTH_SHORT).show()
+        Log.d("EmergencyFragment", "${DataHolder.lt} ${DataHolder.lo}")
         getData()
 
         // Initialize the shake detector
@@ -133,46 +133,18 @@ class EmergencyFragment : Fragment() {
         }
     }
 
-    /*private fun sendSms(phoneNumber: String) {
-        if (checkSmsPermission()) {
+    private fun sendSms(phoneNumber: String) {
+        if (checkSmsPermission() && checkLocationPermission()) {
             val smsManager = SmsManager.getDefault()
             val message = "I'm in danger, help!"
             val sentIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"), 0)
             val deliveredIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_DELIVERED"), 0)
             if (phoneNumber.isEmpty()) return
-            smsManager.sendTextMessage(phoneNumber, null, message, sentIntent, deliveredIntent)
+            val locationStr = "Track here: https://www.google.com/maps/search/?api=1&query=${DataHolder.lt},${DataHolder.lo}"
+            Log.d("EmergencySms", locationStr)
+            val fullMessage = "$message\n$locationStr"
+            smsManager.sendTextMessage(phoneNumber, null, fullMessage, sentIntent, deliveredIntent)
             Toast.makeText(requireContext(), "SMS sent to $phoneNumber", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
-        }
-    }*/
-
-    private fun sendSms(phoneNumber: String) {
-        if (checkSmsPermission()) {
-            val smsManager = SmsManager.getDefault()
-            val message = "I'm in danger, help! My location is: "
-
-            // Get the user's current location
-            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    if (location != null) {
-                        // Append the latitude and longitude to the SMS message
-                        val lat = location.latitude
-                        val lng = location.longitude
-                        val locationStr = "https://www.google.com/maps/search/?api=1&query=$lat,$lng"
-                        val fullMessage = "$message $locationStr"
-
-                        val sentIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"), 0)
-                        val deliveredIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_DELIVERED"), 0)
-                        smsManager.sendTextMessage(phoneNumber, null, fullMessage, sentIntent, deliveredIntent)
-                        Toast.makeText(requireContext(), "SMS sent to $phoneNumber", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.d("EmergencyFragment", "Error getting location: $e")
-                    Toast.makeText(requireContext(), "Error getting location", Toast.LENGTH_SHORT).show()
-                }
         } else {
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
         }
@@ -187,8 +159,8 @@ class EmergencyFragment : Fragment() {
         sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
 
         // Request permission to send SMS if needed
-        if (!checkSmsPermission()) {
-            requestSmsPermission()
+        if (!checkSmsPermission() || !checkLocationPermission()) {
+            requestSmsAndLocationPermissions()
         }
     }
 
@@ -200,21 +172,33 @@ class EmergencyFragment : Fragment() {
     }
 
     private fun checkSmsPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun requestSmsPermission() {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.SEND_SMS), PERMISSION_REQUEST_CODE)
+    private fun checkLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestSmsAndLocationPermissions() {
+        ActivityCompat.requestPermissions(requireActivity(),
+            arrayOf(
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_PHONE_STATE
+            ), PERMISSION_REQUEST_CODE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(requireContext(), "Permission granted", Toast.LENGTH_SHORT).show()
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(requireContext(), "Permissions granted", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Permissions denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
