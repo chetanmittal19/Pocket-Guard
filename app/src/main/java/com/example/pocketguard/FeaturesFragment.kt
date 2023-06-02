@@ -129,10 +129,10 @@ class FeaturesFragment : Fragment() {
             8->{
                 val intent = Intent(Intent.ACTION_SEND)
                 val body = "Hey people,I am gifting a token of safety to all the persons in my society as \n\n*Pocket Guard* solves a very heart wrenching problem of our civilisation, *People's Safety*. \n\nJust *download*,start using, and spread the app \n\nSo that any *person* related to you can feel safer and empowered in this world. \n\nDownload Pocket Guard at:-\n"
-                val link = body + ""
+                val link = "$body https://drive.google.com/drive/folders/16wQeBp0TlQOqnHC0ShcmdvxNl6ivw6Xb?usp=share_link"
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Pocket Guard")
-                intent.putExtra(Intent.EXTRA_TEXT, body)
+                intent.putExtra(Intent.EXTRA_TEXT, link)
                 startActivity(Intent.createChooser(intent, "Share us on..."))
             }
         }
