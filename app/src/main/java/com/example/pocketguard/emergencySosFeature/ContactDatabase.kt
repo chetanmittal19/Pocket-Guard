@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.emergencySosFeature
 
 import android.content.Context
 import androidx.room.Database

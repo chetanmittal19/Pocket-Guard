@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.example.pocketguard.otherFeatures.LocationAct
 
 class FeaturesFragment : Fragment() {
     private lateinit var _binding: FragmentFeaturesBinding
@@ -52,13 +53,11 @@ class FeaturesFragment : Fragment() {
         }
 
         (fragmentList.adapter as FeaturesAdapter).featureData = features
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupNavigationDrawer()
     }
 
@@ -129,7 +128,7 @@ class FeaturesFragment : Fragment() {
             8->{
                 val intent = Intent(Intent.ACTION_SEND)
                 val body = "Hey people,I am gifting a token of safety to all the persons in my society as \n\n*Pocket Guard* solves a very heart wrenching problem of our civilisation, *People's Safety*. \n\nJust *download*,start using, and spread the app \n\nSo that any *person* related to you can feel safer and empowered in this world. \n\nDownload Pocket Guard at:-\n"
-                val link = "$body https://drive.google.com/drive/folders/16wQeBp0TlQOqnHC0ShcmdvxNl6ivw6Xb?usp=share_link"
+                val link = "$body https://github.com/chetanmittal19/Pocket-Guard"
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Pocket Guard")
                 intent.putExtra(Intent.EXTRA_TEXT, link)

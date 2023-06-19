@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.hiddenCameraFeature
 
 import android.content.Context
 import android.hardware.Sensor
@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pocketguard.R
 import com.example.pocketguard.databinding.FragmentMagnetometerBinding
 import kotlin.math.sqrt
 

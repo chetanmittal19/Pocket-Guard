@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.navBar
 
 import android.graphics.Color
 import android.graphics.PorterDuff

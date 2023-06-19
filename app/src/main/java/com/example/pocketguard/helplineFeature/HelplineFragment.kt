@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.helplineFeature
 
 import android.content.Intent
 import android.content.Intent.ACTION_CALL
@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pocketguard.Helpline
+import com.example.pocketguard.R
 import com.google.android.material.snackbar.Snackbar
 
 const val PERMISSION_REQUEST_PHONE_CALL = 0
@@ -26,7 +28,8 @@ class HelplineFragment : Fragment() {
         Helpline("Police", "100"),
         Helpline("Helpdesk", "18001802128"),
         Helpline("COVID-19 Helpline", "8558893911"),
-        Helpline("Cyber Crime", "155620"))
+        Helpline("Cyber Crime", "155620")
+    )
 
     private var contactDetail: Helpline? = null
 
@@ -71,12 +74,14 @@ class HelplineFragment : Fragment() {
             "When asked please give the permission", Snackbar.LENGTH_INDEFINITE)
             snack.setAction("OK"){
                 ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CALL_PHONE),
-                PERMISSION_REQUEST_PHONE_CALL)
+                PERMISSION_REQUEST_PHONE_CALL
+                )
             }
             snack.show()
         } else {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CALL_PHONE),
-                PERMISSION_REQUEST_PHONE_CALL)
+                PERMISSION_REQUEST_PHONE_CALL
+            )
         }
     }
 

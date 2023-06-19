@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.otherFeatures
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.example.pocketguard.DataHolder
+import com.example.pocketguard.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

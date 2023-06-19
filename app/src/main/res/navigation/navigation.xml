@@ -52,27 +52,27 @@
     </fragment>
     <fragment
         android:id="@+id/emergencyFragment"
-        android:name="com.example.pocketguard.EmergencyFragment"
+        android:name="com.example.pocketguard.emergencySosFeature.EmergencyFragment"
         android:label="fragment_emergency"
         tools:layout="@layout/fragment_emergency" />
     <fragment
         android:id="@+id/flashingFragment"
-        android:name="com.example.pocketguard.FlashingFragment"
+        android:name="com.example.pocketguard.otherFeatures.FlashingFragment"
         android:label="fragment_flashing"
         tools:layout="@layout/fragment_flashing" />
     <fragment
         android:id="@+id/tipsFragment"
-        android:name="com.example.pocketguard.TipsFragment"
+        android:name="com.example.pocketguard.otherFeatures.TipsFragment"
         android:label="fragment_tips"
         tools:layout="@layout/fragment_tips" />
     <fragment
         android:id="@+id/helplineFragment"
-        android:name="com.example.pocketguard.HelplineFragment"
+        android:name="com.example.pocketguard.helplineFeature.HelplineFragment"
         android:label="fragment_helpline"
         tools:layout="@layout/fragment_helpline" />
     <fragment
         android:id="@+id/hiddenCameraFragment"
-        android:name="com.example.pocketguard.HiddenCameraFragment"
+        android:name="com.example.pocketguard.hiddenCameraFeature.HiddenCameraFragment"
         android:label="fragment_hidden_camera"
         tools:layout="@layout/fragment_hidden_camera" >
         <action
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.pocketguard.LoginFragment"
+        android:name="com.example.pocketguard.authenticationFeature.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.pocketguard.RegisterFragment"
+        android:name="com.example.pocketguard.authenticationFeature.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
@@ -103,27 +103,27 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.pocketguard.AboutFragment"
+        android:name="com.example.pocketguard.navBar.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/contactFragment"
-        android:name="com.example.pocketguard.ContactFragment"
+        android:name="com.example.pocketguard.navBar.ContactFragment"
         android:label="fragment_contact"
         tools:layout="@layout/fragment_contact" />
     <fragment
         android:id="@+id/feedbackFragment"
-        android:name="com.example.pocketguard.FeedbackFragment"
+        android:name="com.example.pocketguard.communityFeature.FeedbackFragment"
         android:label="fragment_feedback"
         tools:layout="@layout/fragment_feedback" />
     <fragment
         android:id="@+id/magnetometer"
-        android:name="com.example.pocketguard.Magnetometer"
+        android:name="com.example.pocketguard.hiddenCameraFeature.Magnetometer"
         android:label="fragment_magnetometer"
         tools:layout="@layout/fragment_magnetometer" />
     <fragment
         android:id="@+id/manualAuthenticationFragment"
-        android:name="com.example.pocketguard.ManualAuthenticationFragment"
+        android:name="com.example.pocketguard.navBar.ManualAuthenticationFragment"
         android:label="fragment_manual_authentication"
         tools:layout="@layout/fragment_manual_authentication" >
         <action
@@ -132,7 +132,7 @@
     </fragment>
     <fragment
         android:id="@+id/manualAuthenticationDetailFragment"
-        android:name="com.example.pocketguard.ManualAuthenticationDetailFragment"
+        android:name="com.example.pocketguard.navBar.ManualAuthenticationDetailFragment"
         android:label="fragment_manual_authentication_detail"
         tools:layout="@layout/fragment_manual_authentication_detail" >
         <argument
@@ -141,11 +141,11 @@
     </fragment>
     <fragment
         android:id="@+id/rateBarFragment"
-        android:name="com.example.pocketguard.RateBarFragment"
+        android:name="com.example.pocketguard.navBar.RateBarFragment"
         android:label="fragment_rate_bar"
         tools:layout="@layout/fragment_rate_bar" />
     <fragment
         android:id="@+id/privacyPolicyFragment"
-        android:name="com.example.pocketguard.PrivacyPolicyFragment"
+        android:name="com.example.pocketguard.navBar.PrivacyPolicyFragment"
         android:label="PrivacyPolicyFragment" />
 </navigation>

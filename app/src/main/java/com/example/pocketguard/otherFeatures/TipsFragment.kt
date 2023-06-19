@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.otherFeatures
 
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
+import com.example.pocketguard.R
 
 class TipsFragment : Fragment() {
 

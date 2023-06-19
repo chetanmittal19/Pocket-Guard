@@ -1,21 +1,21 @@
-package com.example.pocketguard
+package com.example.pocketguard.authenticationFeature
 
 import android.os.Bundle
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.pocketguard.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
-
-class RegisterFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
 
@@ -24,27 +24,31 @@ class RegisterFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+        if(auth.currentUser != null){
+            findNavController().navigate(
+                LoginFragmentDirections.actionLoginFragmentToFeaturesFragment()
+            )
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val login = view.findViewById<Button>(R.id.login)
-        login.setOnClickListener{
+        val register = view.findViewById<Button>(R.id.register)
+        register.setOnClickListener{
             findNavController().navigate(
-                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             )
         }
 
-        val register = view.findViewById<Button>(R.id.register)
-        register.setOnClickListener{
+        val login = view.findViewById<Button>(R.id.login)
+        login.setOnClickListener{
             view.findViewById<TextInputLayout>(R.id.user_email_container).error = null
             view.findViewById<TextInputLayout>(R.id.user_pass_container).error = null
 
@@ -55,12 +59,11 @@ class RegisterFragment : Fragment() {
                 val progress = view.findViewById<ProgressBar>(R.id.progress)
                 progress.visibility = View.VISIBLE
 
-                auth.createUserWithEmailAndPassword(email, pass)
+                auth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(requireActivity()){task ->
                         progress.visibility = View.INVISIBLE
                         if(task.isSuccessful){
-                            Toast.makeText(requireContext(), "Authentication Successful", Toast.LENGTH_SHORT).show()
-                            RegisterFragmentDirections.actionRegisterFragmentToFeaturesFragment()
+                            LoginFragmentDirections.actionLoginFragmentToFeaturesFragment()
                         } else {
                             val toast = Toast.makeText(
                                 requireActivity(),

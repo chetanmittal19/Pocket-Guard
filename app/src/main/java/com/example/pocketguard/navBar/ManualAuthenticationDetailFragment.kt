@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.navBar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

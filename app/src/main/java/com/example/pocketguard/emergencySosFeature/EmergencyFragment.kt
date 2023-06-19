@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.emergencySosFeature
 
 import android.Manifest
 import android.app.Activity
@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pocketguard.DataHolder
 import com.example.pocketguard.databinding.FragmentEmergencyBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -137,8 +138,8 @@ class EmergencyFragment : Fragment() {
         if (checkSmsPermission() && checkLocationPermission()) {
             val smsManager = SmsManager.getDefault()
             val message = "I'm in danger, help!"
-            val sentIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"), 0)
-            val deliveredIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_DELIVERED"), 0)
+            val sentIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_SENT"), PendingIntent.FLAG_IMMUTABLE)
+            val deliveredIntent = PendingIntent.getBroadcast(requireContext(), 0, Intent("SMS_DELIVERED"), PendingIntent.FLAG_IMMUTABLE)
             if (phoneNumber.isEmpty()) return
             val locationStr = "Track here: https://www.google.com/maps/search/?api=1&query=${DataHolder.lt},${DataHolder.lo}"
             Log.d("EmergencySms", locationStr)

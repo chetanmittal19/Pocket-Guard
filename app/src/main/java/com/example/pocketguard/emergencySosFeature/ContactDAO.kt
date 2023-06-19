@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.emergencySosFeature
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

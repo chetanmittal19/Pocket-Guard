@@ -31,7 +31,7 @@
 
         </activity>
         <activity
-            android:name=".LocationAct"
+            android:name=".otherFeatures.LocationAct"
             android:exported="false" />
 
         <meta-data

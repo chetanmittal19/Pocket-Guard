@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.navBar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -35,7 +35,9 @@ class ManualAuthenticationFragment : Fragment() {
                     binding.outside -> { id = 3 }
                 }
                 findNavController().navigate(
-                    ManualAuthenticationFragmentDirections.actionManualAuthenticationFragmentToManualAuthenticationDetailFragment(id)
+                    ManualAuthenticationFragmentDirections.actionManualAuthenticationFragmentToManualAuthenticationDetailFragment(
+                        id
+                    )
                 )
             } else Toast.makeText(requireContext(), "Please select your location", Toast.LENGTH_LONG).show()
         }

@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.communityFeature
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pocketguard.R
+import com.example.pocketguard.User
 import com.google.firebase.auth.FirebaseAuth
 
 class FeedbackAdapter(private val list: ArrayList<User>): RecyclerView.Adapter<FeedbackAdapter.FeedbackViewHolder>() {
@@ -32,12 +34,12 @@ class FeedbackAdapter(private val list: ArrayList<User>): RecyclerView.Adapter<F
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedbackAdapter.FeedbackViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedbackViewHolder {
         val itemLayout = LayoutInflater.from(parent.context).inflate(R.layout.feedback_item, parent, false)
         return FeedbackViewHolder(itemLayout)
     }
 
-    override fun onBindViewHolder(holder: FeedbackAdapter.FeedbackViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FeedbackViewHolder, position: Int) {
         val item = list[position]
         item.let{
             holder.bind(it)

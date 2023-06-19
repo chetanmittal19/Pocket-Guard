@@ -12,7 +12,7 @@
     <string name="already_registered_click_here_to_login">ALREADY REGISTERED? CLICK HERE TO LOGIN</string>
     <string name="about_us">About Us</string>
     <string name="about_us_content">Introducing our Android application "Pocket Guard" that provides safety in emergency situations. Our app is designed to give you peace of mind in times of crisis by allowing you to quickly and easily call for help with just the touch of a button. \n\nWith features such as location sharing, emergency contacts, and an SOS alarm, our app ensures that you are never alone in a dangerous situation. \n\nWhether you are walking home alone at night or need assistance in a medical emergency, our app has got you covered.Our top priority is your safety, and we strive to make our app accessible and user-friendly for everyone.</string>
-    <string name="phone_number">+91 8814929107 \n+91 6239810170</string>
+    <string name="phone_number">+91 8814929107</string>
     <string name="phone">Phone:</string>
     <string name="website_address">www.pocketguard.com</string>
     <string name="contact_us">Contact Us</string>
@@ -30,7 +30,7 @@
     <string name="type_here">Type here…</string>
     <string name="feedback">Feedback</string>
     <string name="magnetometer">MAGNETOMETER</string>
-    <string name="emailID">chetanmittal19@gmail.com\nkaramjitsingh0607@gmail.com</string>
+    <string name="emailID">chetanmittal19@gmail.com</string>
     <string name="tip_for_manual_detection">Tip for Manual Detection</string>
     <string name="magnetometer_instructions">Installation of Hidden Cameras at various public places used by woman has been one of the greatest havoc problems of women\'s self respect and dignity. So, this feature of Pocket Guard helps women to detect hidden cameras anywhere.\n\nTypes of Hidden cameras :-\n\n1. Hidden cameras which emit IR rays :-\n\nYour phone\'s camera with night vision can detect the blinking of these rays same as we test the remote control of TV.\n\n2. Advanced Electronic Hidden cameras :-\n\nThese cameras do not emit IR rays but as these are electronic cameras so they radiate Electromagnetic radiations.\n\nAnd we have developed a simulation by the help of the magnetometer sensor of your phone which helps you detect any electronic device.\nBut as the hidden cameras are installed mostly at those places where use of electronic devices is not needed. So, detecting any electronic device at those places ensures the chances of spy camera installation. You have to just move and scan all the suspected places by your phone and if there is any hidden camera then Pocket Guard will start beeping. Make sure that the phone is very much close to the suspected area.</string>
     <string name="detailed_instructions">Detailed Instructions</string>

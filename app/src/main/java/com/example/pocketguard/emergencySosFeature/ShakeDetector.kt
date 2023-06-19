@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.emergencySosFeature
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent

@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.otherFeatures
 
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.widget.ImageView
+import com.example.pocketguard.R
 
 class FlashingFragment : Fragment() {
 

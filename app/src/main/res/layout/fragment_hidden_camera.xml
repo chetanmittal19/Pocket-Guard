@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/red"
-    tools:context=".HiddenCameraFragment">
+    tools:context=".hiddenCameraFeature.HiddenCameraFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btn_magnetometer"

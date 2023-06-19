@@ -1,4 +1,4 @@
-package com.example.pocketguard
+package com.example.pocketguard.communityFeature
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pocketguard.User
 import com.example.pocketguard.databinding.FragmentFeedbackBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
